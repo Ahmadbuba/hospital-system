@@ -39,6 +39,6 @@ public class Doctor {
 	@Column(name="next_of_kin_address")
 	private String nextOfKinAddress;
 	
-	@OneToMany(mappedBy="doctor")
+	@OneToMany(mappedBy="doctorDetails")
 	private List<PatientRecord> patientRecords;
 }

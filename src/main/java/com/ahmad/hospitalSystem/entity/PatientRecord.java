@@ -28,10 +28,10 @@ public class PatientRecord {
 	
 	@OneToOne(cascade=CascadeType.ALL)
 	@JoinColumn(name="patient_id")
-	private Patient patient;
+	private Patient patientDetails;
 	
 	@OneToOne(cascade=CascadeType.ALL)
 	@JoinColumn(name="doctor_id")
-	private Doctor doctor;
+	private Doctor doctorDetails;
 	
 }

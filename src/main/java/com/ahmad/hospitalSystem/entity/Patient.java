@@ -1,5 +1,7 @@
 package com.ahmad.hospitalSystem.entity;
 
+import java.util.List;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -45,6 +47,9 @@ public class Patient {
 	@OneToOne(cascade=CascadeType.REMOVE)
 	@JoinColumn(name="personal_detail_id")
 	private PatientPersonalDetails personalDetail;
+	
+	@OneToMany(mappedBy="patientDetails")
+	private List<PatientRecord> notes;
 
 	public Patient(String firstName, String lastName, Gender gender, String address, String nextOfKin,
 			String nextOfKinAddress, PatientPersonalDetails personalDetail) {
