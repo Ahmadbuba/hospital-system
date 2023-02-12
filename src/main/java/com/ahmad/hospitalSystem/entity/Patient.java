@@ -5,28 +5,30 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
+import javax.persistence.Table;
+
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 
-@Entity(name= "patient")
-@Getter @Setter @NoArgsConstructor
+@Entity
+@Table(name= "patient")
+@NoArgsConstructor
 public class Patient {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name="patient_id")
-	private long patientId;
+	private long id;
 	
 	@Column(name="first_name", nullable=false)
+	@Getter @Setter
 	private String firstName;
 	
 	@Column(name="last_name")
@@ -44,12 +46,11 @@ public class Patient {
 	@Column(name="next_of_kin_address")
 	private String nextOfKinAddress;
 	
-	@OneToOne(cascade=CascadeType.REMOVE)
-	@JoinColumn(name="personal_detail_id")
+	@OneToOne(mappedBy="patient", cascade=CascadeType.REMOVE)
 	private PatientPersonalDetails personalDetail;
 	
 	@OneToMany(mappedBy="patientDetails")
-	private List<PatientRecord> notes;
+	private List<PatientRecord> records;
 
 	public Patient(String firstName, String lastName, Gender gender, String address, String nextOfKin,
 			String nextOfKinAddress, PatientPersonalDetails personalDetail) {
@@ -61,6 +62,6 @@ public class Patient {
 		this.nextOfKinAddress = nextOfKinAddress;
 		this.personalDetail = personalDetail;
 	}
-	
+
 	
 }

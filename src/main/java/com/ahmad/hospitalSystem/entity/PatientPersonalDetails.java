@@ -8,17 +8,21 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
+import javax.persistence.Table;
 
+import lombok.Data;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-@Entity(name="personal_detail")
-@Getter @Setter
+@Entity
+@Table(name="personal_detail")
+@Getter @Setter @NoArgsConstructor
 public class PatientPersonalDetails {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name="detail_id")
+	@Column(name="id")
 	private Long id;
 	
 	@Column(name="weight")
@@ -30,7 +34,8 @@ public class PatientPersonalDetails {
 	@Column(name="genotype")
 	private String genoType;
 	
-	@OneToOne(mappedBy="personalDetail", cascade=CascadeType.ALL)
+	@OneToOne
+	@JoinColumn(name="patient_id")
 	private Patient patient;
 
 	public PatientPersonalDetails(double weight, String bloodGroup, String genoType) {
